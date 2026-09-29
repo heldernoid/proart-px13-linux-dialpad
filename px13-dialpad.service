@@ -1,0 +1,18 @@
+[Unit]
+Description=ASUS ProArt PX13 DialPad
+After=systemd-udev-settle.service
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/local/lib/px13-dialpad/px13-dialpad.py
+# The touchpad node can disappear across suspend/resume; the script exits and
+# systemd starts it again.
+Restart=always
+RestartSec=2
+ProtectSystem=strict
+PrivateTmp=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+
+[Install]
+WantedBy=multi-user.target
